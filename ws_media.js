@@ -231,3 +231,25 @@ wsServer.on('request', function (request) {
 server.listen('1337', function () {
     console.log((new Date()).toISOString() + `  OCPP Server is listening on port 1337`);
 });
+
+
+
+app.on('ready', () => {	// Display UI Window
+
+	mainWindow = new BrowserWindow({
+		height: 860,
+		width: 900,
+		icon: __dirname + '/public/icon.png',
+		show: false
+	});
+
+	mainWindow.on('closed', () => {
+		mainWindow = null;
+	});
+
+	mainWindow.setMenu(null);
+
+});
+
+console.log('Server Started');
+console.log(ip.address());
