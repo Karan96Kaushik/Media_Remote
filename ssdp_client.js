@@ -1,16 +1,13 @@
-const ssdp = require('node-upnp-ssdp');
+var Client = require('node-ssdp').Client
+, client = new Client();
 
-ssdp.on('DeviceFound', (a) => {
-    console.log('DF',a);
+client.on('response', function (headers, statusCode, rinfo) {
+console.log('Got a response to an m-search.', headers, rinfo);
 });
 
-ssdp.on('DeviceAvailable', (a) => {
-    console.log('DA', a);
-});
+// search for a service type
+client.search('urn:creepy:service:ContentDirectory:1');
 
-//ssdp.on('DeviceAvailable', console.log);
-ssdp.on('DeviceUnavailable', console.log);
-ssdp.on('DeviceUpdate', console.log);
+// Or get a list of all services on the network
 
-ssdp.mSearch('ssdp:disocver')
-setTimeout(ssdp.close, 20000);
+//client.search('ssdp:all');
