@@ -21,6 +21,8 @@ wsServer.on('request', function (request) {
 
     var connection = request.accept('mine', request.origin);
 
+    console.log('Connected');
+
     connection.on('message', function (message) {
         console.log(message)
         data = message.utf8Data;
@@ -205,11 +207,18 @@ wsServer.on('request', function (request) {
 				connection.sendUTF("opening terminl\n");
 				console.log("Rx : " + data)
 				break;
-			
+            
+                case 'close':
+                    //var data0 = data.split(",");
+                    connection.sendUTF("Closing\n");
+                    mainWindow = null;
+                    console.log("Rx : " + data)
+                    break;
+
 			case 'quit':
 				//var data0 = data.split(",");
 				connection.sendUTF("Quitting\n");
-				socket.destroy;
+				connection.destroy;
 				console.log("Rx : " + data)
 				process.exit();
 				break;
