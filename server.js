@@ -26,6 +26,25 @@ var server = net.createServer(function(socket) {
 
 		switch (data0[0]) {
 			
+			case 'browser':
+				//var data0 = data.split(",");
+				socket.write("Hi Bitch\n");
+				getfocus = BrowserWindow.getFocusedWindow();
+				//console.log(getfocus);
+				if (getfocus === null) {
+					console.log('its null')
+					mainWindow.show();
+					mainWindow.loadURL(data0[1]);
+					mainWindow.setFullScreen(false);
+
+					if(false)
+					setTimeout(() => {
+						ks.sendKey('f');
+					}, 2000);
+				}
+				console.log("Rx : " + data)
+				break;
+
 			case 'hi':
 				//var data0 = data.split(",");
 				socket.write("Hi Bitch\n");
