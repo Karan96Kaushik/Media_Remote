@@ -34,7 +34,7 @@ var server = net.createServer(function(socket) {
 				if (getfocus === null) {
 					console.log('its null')
 					mainWindow.show();
-					mainWindow.loadURL(data0[1]);
+					mainWindow.loadURL('https://' + data0[1]);
 					mainWindow.setFullScreen(false);
 
 					if(false)
