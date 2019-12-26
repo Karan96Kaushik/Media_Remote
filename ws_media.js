@@ -28,207 +28,211 @@ wsServer.on('request', function (request) {
         data = message.utf8Data;
         console.log(data);
 
-		var data0 = data.split(' ');
+        var data0 = data.split(' ');
 
-		switch (data0[0]) {
-			
-			case 'browser':
-				//var data0 = data.split(",");
-				connection.sendUTF("Hi Bitch\n");
-				getfocus = BrowserWindow.getFocusedWindow();
-				//console.log(getfocus);
-				if (getfocus === null) {
-					console.log('its null')
-					mainWindow.show();
-					mainWindow.loadURL(data0[1]);
-					mainWindow.setFullScreen(true);
+        switch (data0[0]) {
 
-					if(false)
-					setTimeout(() => {
-						ks.sendKey('f');
-					}, 2000);
-				}
-				console.log("Rx : " + data)
-				break;
+            case 'control':
+                ks.sendKey(data0[1])
+                break;
 
-			case 'hi':
-				//var data0 = data.split(",");
-				connection.sendUTF("Hi Bitch\n");
-				console.log("Rx : " + data)
-				break;
+            case 'browser':
+                //var data0 = data.split(",");
+                connection.sendUTF("Hi Bitch\n");
+                getfocus = BrowserWindow.getFocusedWindow();
+                //console.log(getfocus);
+                if (getfocus === null) {
+                    console.log('its null')
+                    mainWindow.show();
+                    mainWindow.loadURL(data0[1]);
+                    mainWindow.setFullScreen(true);
 
-			case 'time':
-				//var data0 = data.split(",");
-				connection.sendUTF((new Date) + "\n");
-				console.log("Rx : " + data)
-				break;
-			
-			case 'gut':
-				//var data0 = data.split(",");
-				connection.sendUTF("gut\n");
-				console.log("Rx : " + data)
-				break;
-			
-			case 'youtube':
-				//var data0 = data.split(",");
-				getfocus = BrowserWindow.getFocusedWindow();
-				//console.log(getfocus);
-				if (getfocus === null) {
-					console.log('its null')
-					mainWindow.show();
-					mainWindow.loadURL(`https://www.youtube.com/watch?v=dWFyRxZxE9A`);
-					mainWindow.setFullScreen(false);
+                    if (false)
+                        setTimeout(() => {
+                            ks.sendKey('f');
+                        }, 2000);
+                }
+                console.log("Rx : " + data)
+                break;
 
-					setTimeout(() => {
-						ks.sendKey('f');
-					}, 2000);
-				}
-				
-				switch (data0[1]) {
-					case 'play':
-						ks.sendKey('space');
-						connection.sendUTF("sending space\n");
-						break;
+            case 'hi':
+                //var data0 = data.split(",");
+                connection.sendUTF("Hi Bitch\n");
+                console.log("Rx : " + data)
+                break;
 
-					case 'pause':
-						ks.sendKey('space');
-						connection.sendUTF("sending space\n");
-						break;
+            case 'time':
+                //var data0 = data.split(",");
+                connection.sendUTF((new Date) + "\n");
+                console.log("Rx : " + data)
+                break;
 
-					case 'fwd':
-						ks.sendKey('right');
-						connection.sendUTF("sending right\n");
-						break;
+            case 'gut':
+                //var data0 = data.split(",");
+                connection.sendUTF("gut\n");
+                console.log("Rx : " + data)
+                break;
 
-					case 'back':
-						ks.sendKey('left');
-						connection.sendUTF("sending left\n");
-						break;
+            case 'youtube':
+                //var data0 = data.split(",");
+                getfocus = BrowserWindow.getFocusedWindow();
+                //console.log(getfocus);
+                if (getfocus === null) {
+                    console.log('its null')
+                    mainWindow.show();
+                    mainWindow.loadURL(`https://www.youtube.com/watch?v=dWFyRxZxE9A`);
+                    mainWindow.setFullScreen(false);
 
-					case 'full':
-						ks.sendKey('f');
-						connection.sendUTF("setting fullscreen\n");
-						break;
+                    setTimeout(() => {
+                        ks.sendKey('f');
+                    }, 2000);
+                }
 
-					case 'next':
-						ks.sendCombination(['shift','n']);
-						connection.sendUTF("next video\n");
-						break;
+                switch (data0[1]) {
+                    case 'play':
+                        ks.sendKey('space');
+                        connection.sendUTF("sending space\n");
+                        break;
 
-					case 'load':
-						mainWindow.loadURL(data0[2]);
-						setTimeout(() => {
-							ks.sendKey('f');
-						}, 2000);
+                    case 'pause':
+                        ks.sendKey('space');
+                        connection.sendUTF("sending space\n");
+                        break;
 
-						connection.sendUTF("loading new vid\n");
-						break;
-				
-					default:
-						break;
-				}
+                    case 'fwd':
+                        ks.sendKey('right');
+                        connection.sendUTF("sending right\n");
+                        break;
 
-				connection.sendUTF(data0[1] + "\n");
-				console.log("Rx : " + data)
-				break;
+                    case 'back':
+                        ks.sendKey('left');
+                        connection.sendUTF("sending left\n");
+                        break;
 
-			case 'prime':
-				//var data0 = data.split(",");
-				getfocus = BrowserWindow.getFocusedWindow();
-				//console.log(getfocus);
-				if (getfocus === null) {
-					console.log('its null')
-					mainWindow.show();
-					mainWindow.loadURL(`https://primevideo.com`);
-					mainWindow.setFullScreen(true);
+                    case 'full':
+                        ks.sendKey('f');
+                        connection.sendUTF("setting fullscreen\n");
+                        break;
 
-					setTimeout(() => {
-						ks.sendKey('f');
-					}, 2000);
-				}
-				
-				switch (data0[1]) {
-					case 'play':
-						ks.sendKey('space');
-						connection.sendUTF("sending space\n");
-						break;
+                    case 'next':
+                        ks.sendCombination(['shift', 'n']);
+                        connection.sendUTF("next video\n");
+                        break;
 
-					case 'pause':
-						ks.sendKey('space');
-						connection.sendUTF("sending space\n");
-						break;
+                    case 'load':
+                        mainWindow.loadURL(data0[2]);
+                        setTimeout(() => {
+                            ks.sendKey('f');
+                        }, 2000);
 
-					case 'fwd':
-						ks.sendKey('right');
-						connection.sendUTF("sending right\n");
-						break;
+                        connection.sendUTF("loading new vid\n");
+                        break;
 
-					case 'back':
-						ks.sendKey('left');
-						connection.sendUTF("sending left\n");
-						break;
+                    default:
+                        break;
+                }
 
-					case 'full':
-						ks.sendKey('f');
-						connection.sendUTF("setting fullscreen\n");
-						break;
+                connection.sendUTF(data0[1] + "\n");
+                console.log("Rx : " + data)
+                break;
 
-					case 'next':
-						ks.sendCombination(['shift','n']);
-						connection.sendUTF("next video\n");
-						break;
+            case 'prime':
+                //var data0 = data.split(",");
+                getfocus = BrowserWindow.getFocusedWindow();
+                //console.log(getfocus);
+                if (getfocus === null) {
+                    console.log('its null')
+                    mainWindow.show();
+                    mainWindow.loadURL(`https://primevideo.com`);
+                    mainWindow.setFullScreen(true);
 
-					case 'load':
-						mainWindow.loadURL(data0[2]);
-						setTimeout(() => {
-							ks.sendKey('f');
-						}, 2000);
+                    setTimeout(() => {
+                        ks.sendKey('f');
+                    }, 2000);
+                }
 
-						connection.sendUTF("loading new vid\n");
-						break;
-				
-					default:
-						break;
-				}
+                switch (data0[1]) {
+                    case 'play':
+                        ks.sendKey('space');
+                        connection.sendUTF("sending space\n");
+                        break;
 
-				connection.sendUTF(data0[1] + "\n");
-				console.log("Rx : " + data)
-				break;
-		
-			case 'open terminal':
-				//var data0 = data.split(",");
-				
-                ks.sendCombination(['control','alt','t']);
-				
-				setTimeout(() => {
+                    case 'pause':
+                        ks.sendKey('space');
+                        connection.sendUTF("sending space\n");
+                        break;
 
-				}, 300);
+                    case 'fwd':
+                        ks.sendKey('right');
+                        connection.sendUTF("sending right\n");
+                        break;
 
-				connection.sendUTF("opening terminl\n");
-				console.log("Rx : " + data)
-				break;
-            
-                case 'close':
-                    //var data0 = data.split(",");
-                    connection.sendUTF("Closing\n");
-                    mainWindow = null;
-                    console.log("Rx : " + data)
-                    break;
+                    case 'back':
+                        ks.sendKey('left');
+                        connection.sendUTF("sending left\n");
+                        break;
 
-			case 'quit':
-				//var data0 = data.split(",");
-				connection.sendUTF("Quitting\n");
-				connection.destroy;
-				console.log("Rx : " + data)
-				process.exit();
-				break;
+                    case 'full':
+                        ks.sendKey('f');
+                        connection.sendUTF("setting fullscreen\n");
+                        break;
 
-			default :
-				console.log(data);
-				connection.sendUTF("response for " + data + "\n");
-				break;
+                    case 'next':
+                        ks.sendCombination(['shift', 'n']);
+                        connection.sendUTF("next video\n");
+                        break;
 
-		}
+                    case 'load':
+                        mainWindow.loadURL(data0[2]);
+                        setTimeout(() => {
+                            ks.sendKey('f');
+                        }, 2000);
+
+                        connection.sendUTF("loading new vid\n");
+                        break;
+
+                    default:
+                        break;
+                }
+
+                connection.sendUTF(data0[1] + "\n");
+                console.log("Rx : " + data)
+                break;
+
+            case 'open terminal':
+                //var data0 = data.split(",");
+
+                ks.sendCombination(['control', 'alt', 't']);
+
+                setTimeout(() => {
+
+                }, 300);
+
+                connection.sendUTF("opening terminl\n");
+                console.log("Rx : " + data)
+                break;
+
+            case 'close':
+                //var data0 = data.split(",");
+                connection.sendUTF("Closing\n");
+                mainWindow.hide();
+                console.log("Rx : " + data)
+                break;
+
+            case 'quit':
+                //var data0 = data.split(",");
+                connection.sendUTF("Quitting\n");
+                connection.destroy;
+                console.log("Rx : " + data)
+                process.exit();
+                break;
+
+            default:
+                console.log(data);
+                connection.sendUTF("response for " + data + "\n");
+                break;
+
+        }
     });
 
     connection.on('close', function (reasonCode, description) {
@@ -245,18 +249,18 @@ server.listen('1337', function () {
 
 app.on('ready', () => {	// Display UI Window
 
-	mainWindow = new BrowserWindow({
-		height: 860,
-		width: 900,
-		icon: __dirname + '/public/icon.png',
-		show: false
-	});
+    mainWindow = new BrowserWindow({
+        height: 860,
+        width: 900,
+        icon: __dirname + '/public/icon.png',
+        show: false
+    });
 
-	mainWindow.on('closed', () => {
-		mainWindow = null;
-	});
+    mainWindow.on('closed', () => {
+        mainWindow = null;
+    });
 
-	mainWindow.setMenu(null);
+    mainWindow.setMenu(null);
 
 });
 
