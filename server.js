@@ -20,7 +20,7 @@ var server = net.createServer(function(socket) {
 	});
 
 	socket.on('data', function(data) {
-		//console.log(data);
+		console.log(data);
 
 		var data0 = data.split(' ');
 
