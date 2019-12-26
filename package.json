@@ -20,6 +20,7 @@
     "electron-rebuild": "^1.8.5",
     "ip": "^1.1.5",
     "net": "^1.0.2",
-    "robotjs": "^0.5.1"
+    "robotjs": "^0.5.1",
+    "websocket": "^1.0.31"
   }
 }
