@@ -21,7 +21,10 @@
     "electron-rebuild": "^1.8.5",
     "ip": "^1.1.5",
     "net": "^1.0.2",
+    "node-ssdp": "^4.0.0",
+    "node-upnp-ssdp": "^0.1.1",
     "robotjs": "^0.5.1",
+    "upnp-ssdp": "0.0.2",
     "websocket": "^1.0.31"
   }
 }
