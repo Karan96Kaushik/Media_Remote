@@ -24,10 +24,7 @@ wsServer.on('request', function (request) {
     console.log('Connected');
 
     connection.on('message', function (message) {
-        console.log(message)
         data = message.utf8Data;
-        console.log(data);
-
         var data0 = data.split(' ');
 
         switch (data0[0]) {
@@ -41,7 +38,7 @@ wsServer.on('request', function (request) {
                 connection.sendUTF("Hi Bitch\n");
                 getfocus = BrowserWindow.getFocusedWindow();
                 //console.log(getfocus);
-                if (getfocus === null) {
+                //if (getfocus === null) {
                     console.log('its null')
                     mainWindow.show();
                     mainWindow.loadURL(data0[1]);
@@ -51,7 +48,7 @@ wsServer.on('request', function (request) {
                         setTimeout(() => {
                             ks.sendKey('f');
                         }, 2000);
-                }
+                //}
                 console.log("Rx : " + data)
                 break;
 
