@@ -27,51 +27,23 @@ wsServer.on('request', function (request) {
 	console.log('Connected');
 
 	connection.on('message', function (message) {
-		data = message.utf8Data;
-		var data0 = data.split(' ');
+		var data0 = JSON.parse(message.utf8Data);
 
-		switch (data0[0]) {
+		switch (data0.cmd) {
 
 			case 'control':
-				child_keys.stdin.write(data0[1] + '\n')
+				console.log('control' + data0.string)
+				child_keys.stdin.write(data0.string + '\n')
 				//ks.sendKey(data0[1])
 				break;
 
 			case 'browser':
-				//var data0 = data.split(",");
 				connection.sendUTF("Hi Bitch\n");
 				getfocus = BrowserWindow.getFocusedWindow();
-				//console.log(getfocus);
-				//if (getfocus === null) {
 				console.log('its null')
 				mainWindow.show();
-				mainWindow.loadURL(data0[1]);
+				mainWindow.loadURL(data0.tab);
 				mainWindow.setFullScreen(true);
-
-				if (false)
-					setTimeout(() => {
-						ks.sendKey('f');
-					}, 2000);
-				//}
-				console.log("Rx : " + data)
-				break;
-
-			case 'hi':
-				//var data0 = data.split(",");
-				connection.sendUTF("Hi Bitch\n");
-				console.log("Rx : " + data)
-				break;
-
-			case 'time':
-				//var data0 = data.split(",");
-				connection.sendUTF((new Date) + "\n");
-				console.log("Rx : " + data)
-				break;
-
-			case 'gut':
-				//var data0 = data.split(",");
-				connection.sendUTF("gut\n");
-				console.log("Rx : " + data)
 				break;
 
 			case 'youtube':
@@ -85,38 +57,38 @@ wsServer.on('request', function (request) {
 					mainWindow.setFullScreen(false);
 
 					setTimeout(() => {
-						ks.sendKey('f');
+						sendKey('f');
 					}, 2000);
 				}
 
-				switch (data0[1]) {
+				switch (data0.key) {
 					case 'play':
-						ks.sendKey('space');
+						sendKey('space');
 						connection.sendUTF("sending space\n");
 						break;
 
 					case 'pause':
-						ks.sendKey('space');
+						sendKey('space');
 						connection.sendUTF("sending space\n");
 						break;
 
 					case 'fwd':
-						ks.sendKey('right');
+						sendKey('right');
 						connection.sendUTF("sending right\n");
 						break;
 
 					case 'back':
-						ks.sendKey('left');
+						sendKey('left');
 						connection.sendUTF("sending left\n");
 						break;
 
 					case 'full':
-						ks.sendKey('f');
+						sendKey('f');
 						connection.sendUTF("setting fullscreen\n");
 						break;
 
 					case 'next':
-						ks.sendCombination(['shift', 'n']);
+						sendCombination(['shift', 'n']);
 						connection.sendUTF("next video\n");
 						break;
 
@@ -134,7 +106,7 @@ wsServer.on('request', function (request) {
 				}
 
 				connection.sendUTF(data0[1] + "\n");
-				console.log("Rx : " + data)
+				console.log("Rx : " + data0)
 				break;
 
 			case 'prime':
@@ -246,10 +218,6 @@ server.listen('1337', function () {
 	console.log((new Date()).toISOString() + `  OCPP Server is listening on port 1337`);
 });
 
-
-
-
-
 app.on('ready', () => {	// Display UI Window
 
 	mainWindow = new BrowserWindow({
@@ -270,8 +238,10 @@ app.on('ready', () => {	// Display UI Window
 console.log('Server Started');
 console.log(ip.address());
 
-
+function sendKey(key) {
+	child_keys.stdin.write(key + '\n')
+}
 
 child_keys.stdout.on('data', function (data) {
-	//console.log("Data " + data + '');
+	console.log("Data " + data + '');
 });
